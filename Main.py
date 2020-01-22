@@ -5,6 +5,8 @@ import mplleaflet
 import SOM as som
 import SC as sc
 from sklearn.metrics import silhouette_score
+import matplotlib.colors
+from matplotlib import cm
 
 df = pd.read_csv('fire_archive_M6_81128.csv')
 
@@ -36,3 +38,13 @@ klaster = som.test_SOM(model, dataset.values)
 klaster = np.ravel(klaster)
 sil = silhouette_score(dataset.values, klaster, metric='euclidean')
 print(sil)
+
+dataset['klaster'] = klaster
+fig, ax = plt.subplots(figsize=(17,10))
+print(set(dataset['klaster'].values))
+plot = ax.scatter(data['longitude'], data['latitude'], s=dataset['confidence']*100, Alpha = 0.5 ,
+           c = dataset['klaster'], cmap='jet' )
+
+plt.colorbar(plot)
+plt.show()
+# mplleaflet.display(fig=fig)
