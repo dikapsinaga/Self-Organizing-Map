@@ -47,4 +47,8 @@ plot = ax.scatter(data['longitude'], data['latitude'], s=dataset['confidence']*1
 
 plt.colorbar(plot)
 plt.show()
-# mplleaflet.display(fig=fig)
+mplleaflet.display(fig=fig)
+
+unique, counts = np.unique(klaster, return_counts=True)
+print(dict(zip(unique, counts)))
+print(dataset.groupby(['klaster']).mean())
